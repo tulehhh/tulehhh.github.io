@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>视觉案例 — 涂昊作品集</title>
+  <meta name="description" content="涂昊的电商视觉设计案例，包含商品主图、页面设计与视觉制作实践。">
+  <link rel="stylesheet" href="styles.css?v=r30-visual-refinement">
+  <link rel="stylesheet" href="product.css?v=site-editorial-r9-20261008">
+  <link rel="stylesheet" href="visual-system.css?v=site-refinement-r1-20261007">
+  <script src="visual-system.js?v=20261005-editorial-refine" defer></script>
+<link rel="stylesheet" href="upgrade.css?v=site-editorial-r9-20261008"><script src="upgrade.js?v=method-approved-r8" defer></script></head>
+<body class="product-page" id="top">
+  <a class="skip-link" href="#main">跳转到正文</a>
+  <header class="site-header">
+    <a class="logo" href="index.html"><span class="logo-cn">涂昊</span><span class="logo-slash">/</span> TUHAO</a>
+    <nav aria-label="主导航"><a href="index.html#work" aria-current="page">作品</a><a href="practice.html">方法</a><a href="index.html#experience">关于</a><a href="index.html#contact">联系</a></nav>
+    <a class="header-contact" href="index.html#work">全部作品 <span class="icon-arrow" aria-hidden="true"></span></a>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="product-hero">
+      <a class="product-back" href="index.html#work" data-brand-back><i class="icon-arrow icon-left" aria-hidden="true"></i> <span data-brand-name>作品目录</span> / <span data-category></span></a>
+      <div class="product-heading"><h1 data-title></h1><div class="product-meta"><p class="product-type" data-product-kicker>商品视觉案例</p><p class="product-status" data-product-status hidden>作品整理中</p></div></div>
+      <div class="product-summary"><p class="kicker">项目职责</p><p data-product-role>视觉总控 · 拍摄统筹<br>团队管理 · 设计审核</p><p class="summary-note" data-product-summary hidden><span>统筹商品主图与详情页，</span><span>把控视觉表达与制作质量。</span></p></div>
+    </section>
+    <section class="guideline-study" data-guideline-study hidden aria-label="规范与应用"></section>
+    <section class="comparison-section" data-comparisons aria-label="AI 制作对照" hidden></section>
+    <section class="main-gallery" aria-labelledby="main-title">
+      <div class="gallery-heading"><div><p class="kicker" data-main-kicker hidden>商品视觉</p><h2 id="main-title">商品主图</h2></div><div class="gallery-controls"><span data-main-progress></span><button type="button" data-prev aria-label="向左浏览主图"><i class="icon-arrow icon-left" aria-hidden="true"></i></button><button type="button" data-next aria-label="向右浏览主图"><i class="icon-arrow icon-right" aria-hidden="true"></i></button></div></div>
+      <div class="main-images" data-main tabindex="0" aria-label="商品主图，左右滑动浏览"></div>
+      <div class="gallery-rail" data-gallery-rail hidden><input class="gallery-scrub" data-gallery-scrub type="range" min="0" max="1000" value="0" step="1" aria-label="拖动浏览主图"><span class="gallery-rail-tip" aria-hidden="true">拖动浏览</span></div>
+      <p class="gallery-note" data-main-note>左右滑动浏览，点击主图放大。</p>
+    </section>
+    <section class="case-notes" data-case-notes aria-label="设计思路" hidden></section>
+    <section id="detail" class="detail-section" aria-labelledby="detail-title">
+      <div class="gallery-heading"><div><p class="kicker" data-detail-kicker hidden>页面设计</p><h2 id="detail-title">详情页设计</h2></div><button type="button" class="reader-open" data-read-full>放大阅读 <span class="icon-arrow" aria-hidden="true"></span></button></div>
+      <div class="detail-toolbar" id="detail-controls" hidden><div class="view-switch" role="group" aria-label="详情展示方式"><button type="button" data-view="overview" aria-pressed="true">视觉节选</button><button type="button" data-view="full" aria-pressed="false">完整长图</button></div></div>
+      <div class="detail-overview" data-overview></div>
+      <div class="detail-full" data-full hidden></div>
+      <div class="detail-end"><p data-detail-note>点击节选查看对应片段，可在阅读器中切换。</p><button type="button" data-return-overview hidden>收起长图 <i class="icon-arrow icon-up" aria-hidden="true"></i></button></div>
+    </section>
+    <nav class="product-bottom" aria-label="案例导航"><a href="index.html#work" data-brand-back><i class="icon-arrow icon-left" aria-hidden="true"></i> 返回<span data-category></span>案例</a><a data-next-case href="index.html#work">下一个案例 <i class="icon-arrow" aria-hidden="true"></i></a></nav>
+  </main>
+  <dialog class="image-reader" aria-labelledby="reader-title" data-reader>
+    <header class="reader-header"><div class="reader-heading"><p id="reader-title" data-reader-title></p><span data-reader-caption></span></div><div class="reader-actions"><button type="button" data-reader-switch>阅读完整详情</button><button type="button" data-reader-fit aria-pressed="true">适应宽度</button><button type="button" data-reader-zoom aria-pressed="false">原尺寸</button><button type="button" data-reader-close aria-label="关闭阅读器">关闭 <span class="icon-close" aria-hidden="true"></span></button></div></header>
+    <div class="reader-scroll" data-reader-scroll tabindex="0" aria-label="图片阅读区域"><p class="reader-loading" data-reader-loading role="status" hidden>正在加载图片…</p><div class="reader-art" data-reader-art></div><p class="reader-error" data-reader-error hidden>图片暂时未能载入。<button type="button" data-reader-retry>重新加载</button></p></div>
+    <footer class="reader-footer"><button type="button" data-reader-prev><i class="icon-arrow icon-left" aria-hidden="true"></i> 上一张</button><span data-reader-position aria-live="polite"></span><button type="button" data-reader-next>下一张 <i class="icon-arrow icon-right" aria-hidden="true"></i></button><button type="button" data-reader-top hidden>回到长图顶部 <i class="icon-arrow icon-up" aria-hidden="true"></i></button></footer>
+    <div class="reader-progress" aria-hidden="true"><span data-reader-progress></span></div>
+  </dialog>
+  <footer><span>© 2026 涂昊 / TUHAO</span><a href="#top">返回顶部 <i class="icon-arrow icon-up" aria-hidden="true"></i></a></footer>
+  <script src="brands-data.js?v=editorial-r19"></script><script src="sweetheart-data.js?v=visual-refinement-r26"></script><script src="product-views.js?v=editorial-r19"></script><script src="cases-data.js?v=collection-edit-r4-20261007"></script><script src="product.js?v=site-editorial-r9-20261008"></script>
+</body>
+</html>
