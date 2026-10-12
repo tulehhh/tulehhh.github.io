@@ -5139,7 +5139,9 @@ window.PORTFOLIO_CASES = [
       "assets/catalog/ai-applied-stills/main-07.jpg",
       "assets/catalog/ai-applied-stills/updated-03.png",
       "assets/catalog/ai-applied-stills/updated-05.png",
-      "assets/catalog/ai-applied-stills/main-01.jpg"
+      "assets/catalog/ai-applied-stills/main-01.jpg",
+      "assets/catalog/ai-applied-stills/added-20261012-lace-green.png",
+      "assets/catalog/ai-applied-stills/added-20261012-cooling-water.webp"
     ],
     "mainSources": [
       {
@@ -5192,6 +5194,18 @@ window.PORTFOLIO_CASES = [
         "height": 1200,
         "top": 0,
         "visibleHeight": 1200
+      },
+      {
+        "src": "assets/catalog/ai-applied-stills/added-20261012-lace-green.png",
+        "width": 1500,
+        "height": 2000,
+        "label": "白色蕾丝内裤 · 绿植场景"
+      },
+      {
+        "src": "assets/catalog/ai-applied-stills/added-20261012-cooling-water.webp",
+        "width": 1440,
+        "height": 1920,
+        "label": "冰肌内裤 · 水面场景"
       }
     ],
     "cover": "assets/covers/home-ai-still-20261002.webp",
