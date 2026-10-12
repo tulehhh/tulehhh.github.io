@@ -5132,29 +5132,29 @@ window.PORTFOLIO_CASES = [
       "效果把控"
     ],
     "main": [
-      "assets/catalog/ai-applied-stills/updated-04.png",
-      "assets/catalog/ai-applied-stills/updated-01.png",
+      "assets/catalog/ai-applied-stills/added-20261012-lace-green.png",
+      "assets/catalog/ai-applied-stills/added-20261012-cooling-water.webp",
       "assets/catalog/ai-applied-stills/main-06.jpg",
       "assets/catalog/ai-applied-stills/updated-02.png",
       "assets/catalog/ai-applied-stills/main-07.jpg",
+      "assets/catalog/ai-applied-stills/updated-01.png",
       "assets/catalog/ai-applied-stills/updated-03.png",
-      "assets/catalog/ai-applied-stills/updated-05.png",
       "assets/catalog/ai-applied-stills/main-01.jpg",
-      "assets/catalog/ai-applied-stills/added-20261012-lace-green.png",
-      "assets/catalog/ai-applied-stills/added-20261012-cooling-water.webp"
+      "assets/catalog/ai-applied-stills/updated-04.png",
+      "assets/catalog/ai-applied-stills/updated-05.png"
     ],
     "mainSources": [
       {
-        "src": "assets/catalog/ai-applied-stills/updated-04.png",
+        "src": "assets/catalog/ai-applied-stills/added-20261012-lace-green.png",
         "width": 1500,
         "height": 2000,
-        "label": "红色内裤 · 礼盒"
+        "label": "白色蕾丝内裤 · 绿植场景"
       },
       {
-        "src": "assets/catalog/ai-applied-stills/updated-01.png",
-        "width": 1500,
-        "height": 2000,
-        "label": "白色内裤 · 面料静物"
+        "src": "assets/catalog/ai-applied-stills/added-20261012-cooling-water.webp",
+        "width": 1440,
+        "height": 1920,
+        "label": "冰肌内裤 · 水面场景"
       },
       {
         "src": "assets/catalog/ai-applied-stills/main-06.jpg",
@@ -5177,16 +5177,16 @@ window.PORTFOLIO_CASES = [
         "visibleHeight": 1200
       },
       {
+        "src": "assets/catalog/ai-applied-stills/updated-01.png",
+        "width": 1500,
+        "height": 2000,
+        "label": "白色内裤 · 面料静物"
+      },
+      {
         "src": "assets/catalog/ai-applied-stills/updated-03.png",
         "width": 1500,
         "height": 2000,
         "label": "卷筒内裤 · 面料表达"
-      },
-      {
-        "src": "assets/catalog/ai-applied-stills/updated-05.png",
-        "width": 1500,
-        "height": 2000,
-        "label": "红色内裤 · 鸡尾酒"
       },
       {
         "src": "assets/catalog/ai-applied-stills/main-01.jpg",
@@ -5196,16 +5196,16 @@ window.PORTFOLIO_CASES = [
         "visibleHeight": 1200
       },
       {
-        "src": "assets/catalog/ai-applied-stills/added-20261012-lace-green.png",
+        "src": "assets/catalog/ai-applied-stills/updated-04.png",
         "width": 1500,
         "height": 2000,
-        "label": "白色蕾丝内裤 · 绿植场景"
+        "label": "红色内裤 · 礼盒"
       },
       {
-        "src": "assets/catalog/ai-applied-stills/added-20261012-cooling-water.webp",
-        "width": 1440,
-        "height": 1920,
-        "label": "冰肌内裤 · 水面场景"
+        "src": "assets/catalog/ai-applied-stills/updated-05.png",
+        "width": 1500,
+        "height": 2000,
+        "label": "红色内裤 · 鸡尾酒"
       }
     ],
     "cover": "assets/covers/home-ai-still-20261002.webp",
