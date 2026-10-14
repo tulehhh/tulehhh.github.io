@@ -1,0 +1,11 @@
+/* Four scoped corrections; preserve the incumbent type, spacing, artwork and composition. */
+.product-page .detail-section>.gallery-heading{width:min(780px,100%);margin-inline:auto}
+.product-page .detail-section>.detail-source-note{width:min(780px,100%);margin-inline:auto}
+.product-page .main-slide figcaption>.icon-arrow{display:none}
+#workflow-heading .u-fix-whole-phrase{display:inline-block;white-space:nowrap}
+.u-ai-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start}
+.u-ai-pair figure{margin:0;min-width:0}
+.u-ai-pair figcaption{font-size:12px;font-weight:400;line-height:1.7;color:var(--muted);margin:0 0 10px}
+.u-ai-art{aspect-ratio:3/4;display:grid;grid-template-rows:minmax(0,1fr);min-height:0;background:#fff}
+.u-ai-art img{display:block;width:100%;height:100%;min-width:0;min-height:0;object-fit:contain}
+@media(max-width:760px){.u-ai-pair{gap:12px}}

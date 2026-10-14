@@ -104,7 +104,6 @@
       $('[data-detail-kicker]').textContent = '案例内容';
       $('#detail-title').textContent = isAI ? '制作过程' : '设计细节';
       $('.detail-toolbar').hidden = true;
-      $('[data-read-full]').hidden = true;
       const overview = $('[data-overview]');
       overview.classList.add('is-pending');
       overview.innerHTML = '<div class="pending-detail"><span class="pending-detail-number" aria-hidden="true">02</span><div><h3>完整案例待补充</h3><p>项目图片与设计细节正在整理。</p></div><span class="pending-detail-status">素材整理中</span></div>';
@@ -192,7 +191,7 @@
   $('[data-prev]').setAttribute('aria-label', `向左浏览${imageLabel}`);
   $('[data-next]').setAttribute('aria-label', `向右浏览${imageLabel}`);
   $('[data-main]').setAttribute('aria-label', `${mainLabel}，左右滑动浏览`);
-  $('[data-main-note]').textContent = `左右滑动浏览，点击${imageLabel}放大。`;
+  $('[data-main-note]').textContent = `左右滑动浏览${mainLabel}。`;
   if (item.kind === 'store') $('#detail-title').textContent = '店铺页面'; if (item.kind === 'standard') { $('#detail-title').textContent = '规范与说明'; $('[data-detail-kicker]').textContent = '视觉规范'; }
   if (item.detailLabel) $('#detail-title').textContent = item.detailLabel;
   if (item.detailNote) {
@@ -264,17 +263,17 @@
     gallery.querySelector('.gallery-heading').hidden = true;
     gallery.removeAttribute('aria-labelledby');
     gallery.setAttribute('aria-label', mainLabel);
-    track.setAttribute('aria-label',`${mainLabel}合集，点击画面放大`);
-    $('[data-main-note]').textContent = '完整模块 · 点击画面放大阅读';
+    track.setAttribute('aria-label',`${mainLabel}合集`);
+    $('[data-main-note]').textContent = '完整模块 · 页面内展示';
   }
   if (item.kind === 'product' && mainSources.length) track.style.setProperty('--main-ratio', mainSources[0].width / mainSources[0].height < .9 ? '3/4' : '1');
   const renderMainSlide = (source,i) => {
     const image = `<img src="${escapeHTML(source.src)}" width="${source.width}" height="${source.height}" alt="${escapeHTML(item.product)}：${escapeHTML(source.label || imageLabel + ' ' + (i+1))}" loading="${i===0?'eager':'lazy'}" decoding="async">`;
-    const frame = isWideOriginal ? `<div class="wide-original-image">${image}</div>` : `<button class="main-image" type="button" data-main-index="${i}" aria-label="放大${mainLabel} ${i+1}">${image}</button>`;
+    const frame = isWideOriginal ? `<div class="wide-original-image">${image}</div>` : `<div class="main-image image-frame">${image}</div>`;
     return `<figure class="main-slide">${frame}${isWideOriginal ? '' : `<figcaption><span>${escapeHTML(source.label || imageLabel + ' ' + pad(i+1))}</span><i class="icon-arrow" aria-hidden="true"></i></figcaption>`}</figure>`;
   };
   if (showGallery && isCollection && item.groupCollection) {
-    // Group by the real picture's subject. Keep its original reader index and geometry.
+    // Group by the real picture's subject and preserve source geometry.
     const groups = [...new Set(mainSources.map(source => source.group || mainLabel))];
     track.classList.add('has-groups');
     track.removeAttribute('tabindex');
@@ -292,7 +291,7 @@
     section.hidden = false;
     section.innerHTML = `<div class="gallery-heading"><h2>从素材到应用</h2><p class="comparison-role">${item.comparisons.length} 组制作对照</p></div>` + item.comparisons.map((pair,index) => `<article class="comparison"><div class="comparison-copy"><span>${pad(index+1)}</span><h3>${escapeHTML(pair.title)}</h3>${pair.note ? `<p>${escapeHTML(pair.note)}</p>` : ''}</div><div class="comparison-pair">${['before','after'].map(role => {
       const i=pair[role+'Index'], source=mainSources[i], label=role==='before'?'原图':'效果图';
-      return `<figure><figcaption>${label}</figcaption><button type="button" data-main-index="${i}" aria-label="放大第 ${index+1} 组${label}"><img src="${escapeHTML(source.src)}" width="${source.width}" height="${source.height}" alt="${escapeHTML(pair.title)} · ${label}" loading="lazy" decoding="async"></button></figure>`;
+      return `<figure><figcaption>${label}</figcaption><div class="image-frame"><img src="${escapeHTML(source.src)}" width="${source.width}" height="${source.height}" alt="${escapeHTML(pair.title)} · ${label}" loading="lazy" decoding="async"></div></figure>`;
     }).join('')}</div></article>`).join('');
   }
   if (item.supplements?.length) {
@@ -418,170 +417,6 @@
     $('[data-detail-note]').textContent = '';
     $('.detail-end').hidden = true;
   }
-
-  const reader = $('[data-reader]');
-  const canvas = $('[data-reader-scroll]');
-  let readerKind = 'preview', readerIndex = 0, lastPreview = 0, returnFocus = null;
-  let loadVersion = 0;
-  const currentSource = () => readerKind==='main' ? mainSources[readerIndex] : readerKind==='full' ? views.full : views.previews[readerIndex];
-  const readerTotal = () => readerKind==='main' ? mainSources.length : views.previews.length;
-  function updateReadingProgress() {
-    const max = canvas.scrollHeight - canvas.clientHeight;
-    const progress = max>1 ? Math.min(100,Math.round(canvas.scrollTop/max*100)) : 100;
-    $('[data-reader-progress]').style.width = `${progress}%`;
-    if (readerKind === 'full') $('[data-reader-position]').textContent = `已读 ${progress}%`;
-  }
-  function renderReader() {
-    const rawSource = currentSource();
-    const source = rawSource?.readerSource || rawSource;
-    reader.classList.toggle('is-document', Boolean(rawSource?.readerSource) || ['standard','module'].includes(item.kind) || source?.height > source?.width * 2);
-    reader.style.setProperty('--reader-native-width', (source?.width || 1100) + 'px');
-    if (!source) return;
-    const version = ++loadVersion;
-    reader.dataset.kind = readerKind;
-    reader.style.setProperty('--reader-image-ratio', String(source.width / source.visibleHeight));
-    $('[data-reader-title]').textContent = item.product;
-    $('[data-reader-caption]').textContent = readerKind==='main'?(source.label || mainLabel):readerKind==='full'?(item.kind === 'store' ? '店铺页面原稿' : item.kind === 'standard' ? '规范原稿' : '完整详情原稿'):`视觉节选 ${pad(readerIndex+1)}`;
-    $('[data-reader-prev]').hidden = readerKind==='full';
-    $('[data-reader-next]').hidden = readerKind==='full';
-    $('[data-reader-top]').hidden = readerKind!=='full';
-    $('[data-reader-prev]').disabled = readerIndex===0;
-    $('[data-reader-next]').disabled = readerIndex===readerTotal()-1;
-    $('[data-reader-switch]').hidden = true;
-    $('[data-reader-switch]').textContent = readerKind==='full' ? '返回视觉节选' : '阅读完整详情';
-    $('[data-reader-position]').textContent = `${pad(readerIndex+1)} / ${pad(readerTotal())}`;
-    $('[data-reader-art]').innerHTML = sourceMarkup(source,`${item.product} ${$('[data-reader-caption]').textContent}`,true,source === views.full);
-    $('[data-reader-art]').hidden = false;
-    $('[data-reader-error]').hidden = true;
-    $('[data-reader-loading]').hidden = false;
-    $('[data-reader-art]').setAttribute('aria-busy', 'true');
-    canvas.scrollTo({top:0,left:0,behavior:'auto'});
-    const image = $('[data-reader-art] img');
-    $('[data-reader-art]').querySelectorAll('img').forEach(part => part.addEventListener('error',() => {
-      if (version !== loadVersion) return;
-      $('[data-reader-art]').hidden = true;
-      $('[data-reader-error]').hidden = false;
-      $('[data-reader-loading]').hidden = true;
-      $('[data-reader-art]').setAttribute('aria-busy', 'false');
-      canvas.scrollTo({top:0,left:0,behavior:'auto'});
-    }));
-    image.decode().then(() => {
-      if(version!==loadVersion)return;
-      $('[data-reader-loading]').hidden = true;
-      $('[data-reader-art]').setAttribute('aria-busy', 'false');
-      updateReadingProgress();
-    }).catch(()=>{
-      if(version!==loadVersion)return;
-      $('[data-reader-loading]').hidden = true;
-      $('[data-reader-art]').setAttribute('aria-busy', 'false');
-    });
-    requestAnimationFrame(updateReadingProgress);
-  }
-  const mobileReading = matchMedia('(max-width:760px)');
-
-  function openReader(kind,index=0) {
-    if (mobileReading.matches) return;
-    returnFocus = document.activeElement;
-    readerKind = kind;readerIndex=index;
-    if (kind==='preview') lastPreview=index;
-    zoomReader(false);
-    renderReader();
-    reader.showModal();
-    document.body.classList.add('reader-open-body');
-    $('[data-reader-close]').focus({preventScroll:true});
-    requestAnimationFrame(updateReadingProgress);
-  }
-  function closeReader() {reader.close();}
-  reader.addEventListener('close',()=>{
-    document.body.classList.remove('reader-open-body');
-    returnFocus?.focus({preventScroll:true});
-  });
-  $('[data-reader-close]').addEventListener('click',closeReader);
-  // Keep keyboard navigation inside the open reader, including its boundaries.
-  document.addEventListener('keydown', event => {
-    if (!reader.open) return;
-    if (event.key === 'Escape') {
-      event.preventDefault(); closeReader(); return;
-    }
-    if (event.key !== 'Tab') return;
-    const controls = [...reader.querySelectorAll('button:not(:disabled),a[href],input:not(:disabled),[tabindex]:not([tabindex="-1"])')]
-      .filter(control => !control.closest('[hidden]') && control.getClientRects().length && getComputedStyle(control).visibility !== 'hidden');
-    const first = controls[0], last = controls.at(-1);
-    if (!first) {event.preventDefault(); return;}
-    const active = document.activeElement;
-    if (!reader.contains(active) || (event.shiftKey && active === first) || (!event.shiftKey && active === last)) {
-      event.preventDefault();
-      (event.shiftKey ? last : first).focus({preventScroll:true});
-    }
-  });
-
-  function zoomReader(zoomed) {
-    reader.classList.toggle('is-zoomed',zoomed);
-    $('[data-reader-zoom]').setAttribute('aria-pressed',String(zoomed));
-    $('[data-reader-fit]').setAttribute('aria-pressed',String(!zoomed));
-    updateReadingProgress();
-  }
-  $('[data-reader-fit]').addEventListener('click',()=>zoomReader(false));
-  $('[data-reader-zoom]').addEventListener('click',()=>zoomReader(true));
-  function moveReader(direction) {
-    if (readerKind==='full') return;
-    const next=readerIndex+direction;
-    if (next<0 || next>=readerTotal()) return;
-    readerIndex=next;if(readerKind==='preview')lastPreview=next;
-    renderReader();
-  }
-  $('[data-reader-prev]').addEventListener('click',()=>moveReader(-1));
-  $('[data-reader-next]').addEventListener('click',()=>moveReader(1));
-  $('[data-reader-switch]').addEventListener('click',()=>{
-    readerKind=readerKind==='full'?'preview':'full';readerIndex=lastPreview;renderReader();
-  });
-  $('[data-reader-top]').addEventListener('click',()=>canvas.scrollTo({top:0,behavior:scrollBehavior}));
-  $('[data-reader-retry]').addEventListener('click',renderReader);
-  canvas.addEventListener('scroll',updateReadingProgress,{passive:true});
-  reader.addEventListener('keydown',event=>{
-    if (readerKind === 'full' || (document.activeElement === canvas && canvas.scrollWidth > canvas.clientWidth)) return;
-    if (event.key==='ArrowLeft'||event.key==='ArrowRight') {event.preventDefault();moveReader(event.key==='ArrowLeft'?-1:1);}
-  });
-  document.addEventListener('click',event=>{
-    const main=event.target.closest('[data-main-index]');
-    if(main)openReader('main',Number(main.dataset.mainIndex));
-    const preview=event.target.closest('[data-preview-index]');
-    if(preview)openReader('preview',Number(preview.dataset.previewIndex));
-  });
-  $('[data-read-full]').addEventListener('click',()=>openReader('full'));
-  // On phones images are normal content, with no modal or hidden button semantics.
-  function syncReadingAffordances() {
-    if (mobileReading.matches && reader.open) closeReader();
-    document.querySelectorAll('[data-main-index],[data-preview-index],[data-reader-kind]').forEach(frame => {
-      const kind = frame.dataset.readerKind || (frame.hasAttribute('data-main-index') ? 'main' : 'preview');
-      const index = frame.dataset.readerIndex || frame.dataset[kind + 'Index'];
-      const tag = mobileReading.matches ? 'div' : 'button';
-      frame.dataset.readerKind = kind;
-      frame.dataset.readerIndex = index;
-      frame.dataset.readerLabel ||= frame.getAttribute('aria-label') || frame.querySelector('img')?.alt || '查看原图';
-      frame.classList.add('image-frame');
-      let next = frame;
-      if (frame.tagName.toLowerCase() !== tag) {
-        next = document.createElement(tag);
-        next.className = frame.className;
-        next.dataset.readerKind = kind;
-        next.dataset.readerIndex = index;
-        next.dataset.readerLabel = frame.dataset.readerLabel || frame.getAttribute('aria-label') || '查看原图';
-        while (frame.firstChild) next.append(frame.firstChild);
-        frame.replaceWith(next);
-      }
-      if (mobileReading.matches) {
-        next.removeAttribute('data-main-index'); next.removeAttribute('data-preview-index');
-        next.removeAttribute('aria-label'); next.removeAttribute('type');
-      } else {
-        next.type = 'button'; next.dataset[kind + 'Index'] = index;
-        next.setAttribute('aria-label',next.dataset.readerLabel || '查看原图');
-      }
-    });
-    if (isCollection) track.setAttribute('aria-label',`${mainLabel}合集${mobileReading.matches ? '' : '，点击画面放大'}`);
-  }
-  mobileReading.addEventListener('change',syncReadingAffordances);
-  syncReadingAffordances();
 
   // The catalogue stores both the filter and the card's position before entry.
   document.querySelectorAll('[data-brand-back]').forEach(link => link.addEventListener('click', () => {

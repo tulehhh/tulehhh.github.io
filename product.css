@@ -48,7 +48,7 @@
 .comparison-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
 .comparison-pair figure{margin:0;min-width:0}
 .comparison-pair figcaption{font-size:12px;margin-bottom:12px;color:var(--muted)}
-.comparison-pair button{width:100%;border:0;padding:0;display:block;aspect-ratio:3/4;background:var(--paper);cursor:zoom-in}
+.comparison-pair .image-frame{width:100%;border:0;padding:0;display:block;aspect-ratio:3/4;background:var(--paper);cursor:default}
 .comparison-pair img{display:block;width:100%;height:100%;object-fit:contain}
 .source-sequence{width:100%}
 .source-sequence img{width:100%;height:auto;display:block}.source-sequence .source-window{box-shadow:none}
@@ -75,9 +75,9 @@
 .main-images.is-single-main:not(.is-wide-original) .main-slide{flex-basis:min(var(--single-source-width,780px),780px,100%)}
 .is-identity-case .main-images.is-single-main .main-image{height:auto;display:block}
 .is-identity-case .main-images.is-single-main .main-image img{height:auto;max-height:none}
-.main-image{display:block;padding:0;width:100%;border:0;background:var(--surface);cursor:zoom-in!important}
+.main-image{display:block;padding:0;width:100%;border:0;background:var(--surface);cursor:default!important}
 .main-image img{display:block;width:100%;height:auto;object-fit:contain}
-.main-image:hover{outline:1px solid var(--line);outline-offset:4px}
+
 .main-slide figcaption{display:flex;align-items:center;justify-content:space-between;font-size:12px;line-height:1.6;color:var(--muted);margin-top:12px}
 .gallery-note{margin:10px 0 0;font-size:12px;line-height:1.7;color:var(--muted)}
 .detail-section{border-top:1px solid var(--line);padding:58px 0 76px}
@@ -91,7 +91,7 @@
 .detail-card{margin:0;min-width:0}
 .detail-card-head{display:flex;align-items:baseline;justify-content:space-between;font-size:12px;line-height:1.6;margin-bottom:13px;color:var(--muted)}
 .detail-card-head b{font:12px var(--mono);color:var(--ink)}
-.detail-card button{width:100%;padding:0;display:block;border:0;background:var(--surface);cursor:zoom-in}
+.detail-card button{width:100%;padding:0;display:block;border:0;background:var(--surface);cursor:default}
 .source-window{position:relative;width:100%;aspect-ratio:var(--source-ratio);overflow:hidden;background:#f3f3f3}
 .source-window img{position:absolute;top:0;left:0;display:block;width:100%;height:auto;margin-top:var(--source-offset,0%)}
 .detail-card button:hover{outline:1px solid var(--line);outline-offset:5px}
@@ -202,8 +202,8 @@ body.reader-open-body{overflow:hidden}
 /* Long originals open at reading width instead of a fit-height thumbnail. */
 .image-reader[data-kind=main].is-document .reader-art{width:min(980px,100%)}.image-reader[data-kind=main].is-document.is-zoomed .reader-art{width:var(--reader-native-width);max-width:none}
 /* Keep keyboard focus inside clipped galleries and readable against both light and dark art. */
-.main-image:focus-visible,.comparison-pair button:focus-visible{position:relative;outline:2px solid var(--ink);outline-offset:-2px}
-.main-image:focus-visible::after,.comparison-pair button:focus-visible::after{content:"";position:absolute;inset:4px;border:2px solid var(--accent);pointer-events:none}
+.main-image:focus-visible,.comparison-pair .image-frame:focus-visible{position:relative;outline:2px solid var(--ink);outline-offset:-2px}
+.main-image:focus-visible::after,.comparison-pair .image-frame:focus-visible::after{content:"";position:absolute;inset:4px;border:2px solid var(--accent);pointer-events:none}
 @media(max-width:760px){
  .case-notes{padding:20px 0;margin-bottom:32px}.case-notes article{display:block}
  .case-notes h2{font-size:17px;margin-bottom:12px}.case-notes p{font-size:15px}
@@ -261,7 +261,7 @@ body.reader-open-body{overflow:hidden}
 .comparison-copy h3{font-size:22px;line-height:1.25}
 .comparison-pair{gap:24px}
 .comparison-pair figcaption{font-size:12px;line-height:1.65;padding-bottom:8px;margin-bottom:8px;border-bottom:1px solid var(--line)}
-.comparison-pair button{background:var(--surface)}
+.comparison-pair .image-frame{background:var(--surface)}
 .comparison{padding:24px 0 40px}
 @media(max-width:760px){
  .product-hero{padding-bottom:24px}
